@@ -1,29 +1,62 @@
-# Microapp
+# MicroApp
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/microapp`. To experiment with that code, run `bin/console` for an interactive prompt.
+MicroApp is novel way to host micro applications in a single file. It's not meant be be a microservice framework. It's meant to be a way to create and deploy small applications in a simple way. Need to create a landing page? A slack bot? A scheduled task? A websocket server? A background worker? A file storage? A cache? A database? All together and combined? MicroApp can do it all.
 
-TODO: Delete this and the text above, and describe your gem
+# WARNING: This is a work in progress and not ready for production use, not everything described here is implemented yet
 
-## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+## Creating a MicroApp
 
-    $ bundle add microapp
+MicroApp is a Ruby gem that is providing a way to create and deploy microapplications in a simple way.
 
-If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install microapp
+## Deployment Methods
 
-## Usage
+MicroApp is trying to abstract from infrastructure it's running on. It can be deployed in different ways:
+ - `microapp deploy local` - one single Ruby process that is trying to mimic other deployment methods locally
+ - `microapp deploy docker-single` - Docker container with all dependencies inside using Procfile
+ - `microapp deploy docker-compose` - Docker container with all dependencies inside using docker-compose.yml
+ - `microapp deploy aws-cloud-sam` - AWS Lambda function using AWS SAM (Serverless Application Model) with Cloudformation template
+ - `microapp deploy microapp-cloud` - MicroApp Cloud - a cloud service that is running MicroApp on AWS, GCP, Azure, etc.
 
-TODO: Write usage instructions here
 
-## Development
+## MicroApp Elements
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+MicroApp can have many elements:
+ - `web` - a web application, that is using Sinatra as a web framework (Sinatra with Lamby on AWS Lambda)
+ - `schedule` - a scheduled task, that is using Rufus-scheduler or AWS 
+ - `worker` - a background worker, that is using Sidekiq or AWS SQS
+ - `websocket` - a websocket server, that is using XXX (probably Faye or Thin with EventMachine) or AWS API Gateway
+ - `db` - a database, that is using XXX or AWS DynamoDB
+ - `cache` - a cache, that is using XXX or AWS ElastiCache
+ - `filestorage` - a file storage, that is using XXX or AWS S3
+ 
+## MicroApp Dokker Image
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+MicroApp provides official Docker image that is capable of running any MicroApp.
 
-## Contributing
+ - `docker run microapp/microapp github:microapp/microapp/examples/web-slack-bot.rb` - run a Websocket Chat MicroApp
+ - `docker run -v $(pwd):/microapp microapp/microapp` - run your MicroApp from the current directory
+ - 
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/microapp.
+## MicroApp Repository
+
+MicroApps can be created in any Github repository 
+
+## MicroApp Caveats
+
+Not every deployment infrastructure can be replicated 1:1 which means that some features may not work on all deployment methods.
+
+1. File upload on Lambda is Limited an
+
+## MicroApp Examples
+
+MicroApp can be used in many ways, here are some examples:
+ - [Slack Bot](examples/web-slack-bot.rb) - a simple Slack bot that is responding to messages
+ - [Scheduled Monitor](examples/schedule-currency-monitor.rb) - a scheduled task that is checking currency rates
+ - [Background Worker](examples/worker-email-sender.rb) - a background worker that is sending emails
+ - [Websocket Server](examples/websocket-chat.rb) - a websocket server that is handling chat messages
+
+## More Ideas
+ - MicroApp can define two or more apps
+   - This is useful for microservices that are working together, but also we can use one docker container to run multiple apps
