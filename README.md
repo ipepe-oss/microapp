@@ -4,6 +4,16 @@ MicroApp is novel way to host micro applications in a single file. It's not mean
 
 # WARNING: This is a work in progress and not ready for production use, not everything described here is implemented yet
 
+## Implemented features
+
+| Platform       | web | schedule | worker | websocket | db | cache | filestorage |
+|----------------|-----|----------|--------|-----------|----|-------|-------------|
+| Local          | ❌   | ❌        | ❌      | ❌         | ❌  | ❌     | ❌           |
+| Docker         | ❌   | ❌        | ❌      | ❌         | ❌  | ❌     | ❌           |
+| Docker Compose | ❌   | ❌        | ❌      | ❌         | ❌  | ❌     | ❌           |
+| AWS SAM        | ❌   | ❌        | ❌      | ❌         | ❌  | ❌     | ❌           |
+| MicroApp Cloud | ❌   | ❌        | ❌      | ❌         | ❌  | ❌     | ❌           |
+
 
 ## Creating a MicroApp
 
